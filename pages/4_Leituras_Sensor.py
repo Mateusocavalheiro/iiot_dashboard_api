@@ -1,18 +1,14 @@
 import streamlit as st
 import plotly.express as px
-import time
 from utils.api_client import get_leituras
 
 st.title("Leituras de um Sensor")
 
-# Input para o ID do Sensor
+# Input para o ID do sensor
 sensor_id = st.number_input("ID do Sensor", min_value=1, step=1)
 
-# Criação de um espaço vazio onde o gráfico será recarregado
-grafico = st.empty()
-
-# Função para atualizar o gráfico
-def atualizar_grafico():
+# Botão para consultar e recarregar as leituras
+if st.button("Consultar Leituras"):
     # Obtendo as leituras do sensor
     leituras = get_leituras(sensor_id)
     
@@ -31,12 +27,11 @@ def atualizar_grafico():
         fig = px.line(data_frame=data, x='Timestamp', y='Valor', title=f"Leituras do Sensor {sensor_id}")
         
         # Exibir o gráfico no Streamlit
-        grafico.plotly_chart(fig)
+        st.plotly_chart(fig)
     else:
         st.error("Não foi possível obter as leituras ou o sensor não existe.")
-
-# Atualizar o gráfico a cada 5 segundos
-while True:
-    atualizar_grafico()
-    time.sleep(5)  # Aguarda 5 segundos antes de atualizar novamente
-    st.experimental_rerun()  # Força a página a recarregar
+    
+    # Botão de recarga (recarregar o gráfico)
+    if st.button("Recarregar Gráfico"):
+        # Ao pressionar o botão "Recarregar Gráfico", o gráfico será atualizado
+        st.experimental_rerun()
