@@ -5,11 +5,11 @@ st.title("Cadastrar Novo Sensor")
 
 with st.form("form_sensor"):
     tag = st.text_input("Tag")
-    tipo = st.selectbox("Tipo", ["temperatura", "pressão", "vibração"])
-    range_lrv = st.number_input("LRV", value=0.0)
-    range_urv = st.number_input("URV", value=100.0)
-    unidade = st.text_input("Unidade", value="ºC")
-    valor = st.number_input("Valor Inicial", value=0.0)
+    tipo = st.selectbox("Tipo", ["Temperatura", "Pressão", "Vibração"])
+    range_lrv = st.number_input("LRV")
+    range_urv = st.number_input("URV")
+    unidade = st.text_input("Unidade")
+    valor = st.number_input("Valor Inicial")
 
     submitted = st.form_submit_button("Cadastrar")
 
